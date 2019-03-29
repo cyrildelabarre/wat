@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Container, Col, FormGroup, FormControl, Button, Card } from 'react-bootstrap';
+import { Container, Col, Form, Button, Card } from 'react-bootstrap';
 import { connect } from "react-redux";
 import { bindActionCreators } from 'redux';
 import classnames from 'classnames';
@@ -45,15 +45,15 @@ class Signin extends Component {
     const {errors} = this.state;
     return (
       <Container id="login" className="vertical-middle" fluid>
-        <Col xs={12} md={4} mdOffset={4}>
+        <Col xs={12} md={{span:4, offset:4}}>
 
             <Card  id="signinPanel">
-              <Card.Heading>
-                <Card.Title componentClass="h2">Connecte toi</Card.Title>
-              </Card.Heading>
+              <Card.Header>
+                <Card.Title>Connecte toi</Card.Title>
+              </Card.Header>
               <Card.Body>
-                <FormGroup controlId="email">
-                  <FormControl
+                <Form.Group controlId="email">
+                  <Form.Control
                     type='email'
                     placeholder="Entre ton email"
                     className={classnames('form-control form-control-lg', {
@@ -63,9 +63,9 @@ class Signin extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.email } />
                   {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                </FormGroup>
-                <FormGroup controlId="password">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.Control
                     type='password'
                     placeholder="Entre ton mot de passe"
                     className={classnames('form-control form-control-lg', {
@@ -75,7 +75,7 @@ class Signin extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password } />
                   {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
-                </FormGroup>
+                </Form.Group>
                 <Button onClick={this.handleSubmit}>Envoyer</Button>
               </Card.Body>
             </Card>

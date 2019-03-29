@@ -5,7 +5,7 @@ import Signup from "./components/Signup"
 import Signin from "./components/Signin"
 import MonCompte from "./components/MonCompte"
 import Articles from "./components/Articles"
-import FeaturesPage from "./components/Newspage"
+import Sources from "./components/Sources"
 
 
 const Main = () => (
@@ -15,7 +15,7 @@ const Main = () => (
       <Route path='/signin' component={Signin}/>
       <Route path='/monCompte' component={MonCompte}/>
       <Route path='/articles' component={Articles}/>
-      <Route path='/classement' component={FeaturesPage} />
+      <Route path='/classement' component={Sources} />
     </Switch>
   </main>
 )

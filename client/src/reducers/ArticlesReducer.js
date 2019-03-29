@@ -1,5 +1,6 @@
 const initialeState = {
- article: []
+ article: [],
+ source: [],
 }
 
 export const articleReducer = (state=initialeState, action) => {
@@ -8,6 +9,14 @@ export const articleReducer = (state=initialeState, action) => {
      return {...state, article:[...action.payload]};
    case 'GET_ARTICLES_REJECTED':
      return action.payload
+     case 'GET_CATEGORIES':
+       return {...state, article:[...action.payload]};
+     case 'GET_CATEGORIES_REJECTED':
+       return action.payload
+       case 'GET_SOURCES':
+         return {...state, source:[...action.payload]};
+       case 'GET_SOURCES_REJECTED':
+         return action.payload
    default: {
      return state
    }

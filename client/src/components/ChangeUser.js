@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { Col, Card, Button, FormGroup, InputGroup, FormControl } from 'react-bootstrap'
+import { Col, Card, Button, Form, InputGroup, FormControl } from 'react-bootstrap'
 import { findDOMNode } from 'react-dom'
 
 import { updateUser, logoutUser } from '../actions/Authentication'
@@ -45,40 +45,40 @@ class ChangeUser extends Component {
             {this.state.modifyUser ?
               <ul>
                 <li>
-                  <FormGroup controlId="newNom">
+                  <Form.Group controlId="newNom">
                     <InputGroup>Change ton Nom :</InputGroup>
                     <FormControl
                       type='text'
                       defaultValue={this.props.nom}
                       ref='newNom' />
-                  </FormGroup>
+                  </Form.Group>
                 </li>
                 <li>
-                  <FormGroup controlId="newPrenom">
+                  <Form.Group controlId="newPrenom">
                     <InputGroup>Change ton Prénom :</InputGroup>
                     <FormControl
                       type='text'
                       defaultValue={this.props.prenom}
                       ref='newPrenom' />
-                  </FormGroup>
+                  </Form.Group>
                 </li>
                 <li>
-                  <FormGroup controlId="newPseudo">
+                  <Form.Group controlId="newPseudo">
                     <InputGroup>Change ton pseudo :</InputGroup>
                     <FormControl
                       type='text'
                       defaultValue={this.props.pseudo}
                       ref='newPseudo' />
-                  </FormGroup>
+                  </Form.Group>
                 </li>
                 <li>
-                  <FormGroup controlId="newEmail">
+                  <Form.Group controlId="newEmail">
                     <InputGroup>Change ton email :</InputGroup>
                     <FormControl
                       type='text'
                       defaultValue={this.props.email}
                       ref='newEmail' />
-                  </FormGroup>
+                  </Form.Group>
                 </li>
                 <li>
                   <Button onClick={this.changeUser.bind(this)}>Sauvegarder</Button>

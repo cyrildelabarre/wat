@@ -1,91 +1,105 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import { MDBBtn, MDBCard, MDBCardBody, MDBCardImage, MDBCardTitle, MDBCardText, MDBCol, MDBRow, MDBView, MDBMask, MDBIcon } from 'mdbreact';
+import {  MDBCard, MDBCardBody, MDBCol, MDBRow, MDBView, MDBMask, MDBIcon } from 'mdbreact';
 import Media from 'react-bootstrap/Media'
 
-import { getArticles } from '../actions/GetArticles'
+import { getArticles, getCategories } from '../actions/GetArticles'
 
 class Articles extends Component {
 
   constructor(props) {
     super(props)
-
     this.props.getArticles()
+  }
 
+  chooseCategory(e, props) {
+    let category = e.target.innerText
+    this.props.getCategories(category)
   }
 
   render () {
-
     return (
-// {TOP 2 ARTICLES}
-      <div className='container'>
-        <div>
-          <MDBCard
-            className="my-5 px-5 mx-auto"
-            style={{ fontWeight: 300, maxWidth: "90%" }}
-            >
-            <MDBCardBody style={{ paddingTop: 0 }}>
-              <h2 className="h1-responsive font-weight-bold my-5 text-center">
-                Section title
-              </h2>
-              <p className="dark-grey-text mx-auto mb-5 w-75 text-center">
-                Duis aute irure dolor in reprehenderit in voluptate velit esse
-                cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
-                cupidatat non proident, sunt in culpa qui officia deserunt mollit id
-                laborum.
-              </p>
-              <MDBRow>
-                {
-                  this.props.articles.map((article, i) => {
-                    if(article.content === null || article.description === null || article.publishedAt === null || article.source.name === null || article.title === null || article.urlToImage === null || article.url === null) {
-                      return null
-                    } else {
-                      const content = article.content;
-                      const contentSplit = content.split('[')[0];
+      // {TOP 2 ARTICLES}
+      <div>
+        <MDBRow className="m-top-5 px-5 mx-auto justify-content-center"
+          style={{ fontWeight: 300, maxWidth: "100%" }}
+          >
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>business</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>entertainment</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>general</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>health</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>science</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>sports</button>
+          <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>technology</button>
+        </MDBRow>
+        <div className='container'>
+          <div>
+            <MDBCard
+              className="my-5 px-5 mx-auto"
+              style={{ fontWeight: 300, maxWidth: "90%" }}
+              >
+              <MDBCardBody style={{ paddingTop: 0 }}>
+                <h2 className="h1-responsive font-weight-bold my-5 text-center">
+                  Top News
+                </h2>
+                <p className="dark-grey-text mx-auto mb-5 w-75 text-center">
+                  ...
+                </p>
+                <MDBRow>
+                  {
+                    this.props.articles.map((article, i) => {
+                      var now = new Date();
+                      var publishedTime = new Date(article.publishedAt);
+                      var timeDiff = (now - publishedTime)
+                      var time = new Date(timeDiff).toLocaleTimeString("fr-FR")
+                      const timePassed = time.split(':')[0] + 'h';
+
                       if (i < 2) {
                         return (
-                          <MDBCol lg="6" md="12" key={i}>
-                            <div style={{
-                                borderBottom: "1px solid #e0e0e0",
-                                marginBottom: "1.5rem"
-                              }}>
-                              <MDBView hover rounded className="z-depth-1-half mb-4">
-                                <img
-                                  className="img-fluid"
-                                  src={article.urlToImage}
-                                  alt=""
-                                  />
-                                <a href="#!">
-                                  <MDBMask overlay="white-slight" className="waves-light" />
-                                </a>
-                              </MDBView>
-                              <div className="d-flex justify-content-between">
-                                <a href="#!" className="light-blue-text">
-                                  <h6 className="font-weight-bold">
-                                    <MDBIcon icon="plane" className="pr-2" />
+                          <MDBCol lg="6" md="12" key={i} className="d-flex">
+                            <a href={article.url} target="_blank" rel="noopener noreferrer">
+                              <div style={{
+                                  marginBottom: "1.5rem"
+                                }}>
+                                <MDBView hover rounded className="z-depth-1-half mb-4">
+                                  <img
+                                    height={200}
+                                    className="top-img"
+                                    src={article.urlToImage}
+                                    alt=""
+                                    />
 
+                                  <MDBMask overlay="white-slight" className="waves-light" />
+
+                                </MDBView>
+                                <div className="d-flex justify-content-between">
+
+                                  <h6 className="">
+                                    <MDBIcon icon="plane" className="pr-2" />
+                                    {article.source.name}
                                   </h6>
-                                </a>
-                                <p className="font-weight-bold dark-grey-text">
-                                  <MDBIcon far icon="clock" className="pr-2" />
-                                {article.publishedAt}
+
+                                  <p className="font-weight-bold dark-grey-text">
+                                    <MDBIcon far icon="clock" className="pr-2" />
+                                    {timePassed}
+                                  </p>
+                                </div>
+                                <h3 className="font-weight-bold dark-grey-text mb-3 p-0">
+                                  {article.title}
+                                </h3>
+                                <p className="dark-grey-text">
+                                  {article.description}
                                 </p>
                               </div>
-                              <h3 className="font-weight-bold dark-grey-text mb-3 p-0">
-                                <a href="#!">{article.title}</a>
-                              </h3>
-                              <p className="dark-grey-text">
-                                {article.description}
-                              </p>
-                            </div>
+                            </a>
                           </MDBCol>
                         )
                       } else {
                         return (
                           // {REST OF ARTICLES}
                           <ul className="list-unstyled" key={i}>
-                            <a href={article.url} >
+                            <a href={article.url} target="_blank" rel="noopener noreferrer">
                               <Media as="li" key={i}>
                                 <img
                                   width={264}
@@ -99,18 +113,20 @@ class Articles extends Component {
                                   <p>
                                     {article.description}
                                   </p>
+                                  <p>{timePassed}</p>
                                 </Media.Body>
                               </Media>
                             </a>
                           </ul>
                         )
                       }
-                    }
-                  })
-                }
-              </MDBRow>
-            </MDBCardBody>
-          </MDBCard>
+
+                    })
+                  }
+                </MDBRow>
+              </MDBCardBody>
+            </MDBCard>
+          </div>
         </div>
       </div>
     )
@@ -125,6 +141,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
+    getCategories,
     getArticles,
   }, dispatch)
 }

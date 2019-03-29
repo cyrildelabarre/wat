@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom'
-import { Container, Col, FormGroup, FormControl, Button, Card } from 'react-bootstrap';
+import { Container, Col, Form, Button, Card } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
@@ -55,15 +55,14 @@ class Signup extends Component {
     const { errors } = this.state;
     return (
       <Container id="logup" className="vertical-middle" fluid>
-        <Col xs={12} md={4} mdOffset={4}>
-
+        <Col xs={12} md={{span:4,offset:4}}>
             <Card id="logup-panel-group">
-              <Card.Heading>
-                <Card.Title componentClass="h2">Créer ton compte</Card.Title>
-              </Card.Heading>
+              <Card.Header>
+                <Card.Title>Créer ton compte</Card.Title>
+              </Card.Header>
               <Card.Body>
-                <FormGroup controlId="nom">
-                  <FormControl
+                <Form.Group controlId="nom">
+                  <Form.Control
                     type='text'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.nom
@@ -73,9 +72,9 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.nom } />
                   {errors.nom && (<div className="invalid-feedback">{errors.nom}</div>)}
-                </FormGroup>
-                <FormGroup controlId="prenom">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="prenom">
+                  <Form.Control
                     type='text'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.prenom
@@ -85,9 +84,9 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.prenom } />
                   {errors.prenom && (<div className="invalid-feedback">{errors.prenom}</div>)}
-                </FormGroup>
-                <FormGroup controlId="pseudo">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="pseudo">
+                  <Form.Control
                     type='text'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.pseudo
@@ -97,9 +96,9 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.pseudo } />
                   {errors.pseudo && (<div className="invalid-feedback">{errors.pseudo}</div>)}
-                </FormGroup>
-                <FormGroup controlId="email">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="email">
+                  <Form.Control
                     type='email'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.email
@@ -109,9 +108,9 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.email } />
                   {errors.email && (<div className="invalid-feedback">{errors.email}</div>)}
-                </FormGroup>
-                <FormGroup controlId="password">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="password">
+                  <Form.Control
                     type='password'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.password
@@ -121,9 +120,9 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password } />
                   {errors.password && (<div className="invalid-feedback">{errors.password}</div>)}
-                </FormGroup>
-                <FormGroup controlId="password_confirm">
-                  <FormControl
+                </Form.Group>
+                <Form.Group controlId="password_confirm">
+                  <Form.Control
                     type='password'
                     className={classnames('form-control form-control-lg', {
                       'is-invalid': errors.password_confirm
@@ -133,14 +132,13 @@ class Signup extends Component {
                     onChange={ this.handleInputChange }
                     value={ this.state.password_confirm } />
                   {errors.password_confirm && (<div className="invalid-feedback">{errors.password_confirm}</div>)}
-                </FormGroup>
+                </Form.Group>
                 <Button onClick={this.handleSubmit}>Enregistrer</Button>
                 <Col xs={12} className='signup-to-signin'>
                   <Link to='/signin'>Sinon pour te connecter c'est par ici</Link>
                 </Col>
               </Card.Body>
             </Card>
-          
         </Col>
       </Container>
     )
