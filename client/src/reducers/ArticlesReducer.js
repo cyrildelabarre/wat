@@ -17,6 +17,10 @@ export const articleReducer = (state=initialeState, action) => {
          return {...state, source:[...action.payload]};
        case 'GET_SOURCES_REJECTED':
          return action.payload
+         case 'GET_SOURCESICON':
+           return {...state, source:[...action.payload]};
+         case 'GET_SOURCESICON_REJECTED':
+           return action.payload
    default: {
      return state
    }
