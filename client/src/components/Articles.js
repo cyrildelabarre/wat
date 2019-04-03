@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import Iframe from 'react-iframe'
 import { bindActionCreators } from 'redux'
 import {  MDBCard, MDBCardBody, MDBCol, MDBRow, MDBView, MDBMask, MDBIcon } from 'mdbreact';
 import Media from 'react-bootstrap/Media'
@@ -11,6 +12,10 @@ class Articles extends Component {
   constructor(props) {
     super(props)
     this.props.getArticles()
+
+    this.state = {
+      displayIframe: false
+    }
   }
 
   chooseCategory(e, props) {
@@ -18,10 +23,18 @@ class Articles extends Component {
     this.props.getCategories(category)
   }
 
+  openIframe(url) {
+    document.getElementById('myId').setAttribute("src", url)
+    this.setState({
+      displayIframe: !this.state.displayIframe
+    })
+  }
+
   render () {
     return (
       // {TOP 2 ARTICLES}
       <div>
+        <Iframe src='' id="myId" className={this.state.displayIframe ? "myClassname showIframe" : "myClassname"} display="initial" position="relative" allowFullScreen />
         <MDBRow className="m-top-5 px-5 mx-auto justify-content-center"
           style={{ fontWeight: 300, maxWidth: "100%" }}
           >
@@ -57,8 +70,7 @@ class Articles extends Component {
 
                       if (i < 2) {
                         return (
-                          <MDBCol lg="6" md="12" key={i} className="d-flex">
-                            <a href={article.url} target="_blank" rel="noopener noreferrer">
+                          <MDBCol lg="6" md="12" key={i} className="d-flex" onClick={this.openIframe.bind(this, article.url)}>
                               <div style={{
                                   marginBottom: "1.5rem"
                                 }}>
@@ -92,7 +104,6 @@ class Articles extends Component {
                                   {article.description}
                                 </p>
                               </div>
-                            </a>
                           </MDBCol>
                         )
                       } else {
