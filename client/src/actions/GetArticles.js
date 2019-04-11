@@ -29,7 +29,7 @@ export function getCategories(category) {
   let articleCategories = []
   return function(dispatch) {
     axios.get('https://newsapi.org/v2/top-headlines?country=fr&category='+category+'&apiKey=be5007db5e5c4895a77579be8c5d173e')
-    .then(function(response) {
+    .then(function(response, err) {
       response.data.articles.map((article, i) => {
         if(article.content !== null && article.description !== null && article.publishedAt !== null && article.source.name !== null && article.title !== null && article.urlToImage !== null && article.url !== null && article.description !== "" && article.content !== "") {
             articleCategories.push(article)
@@ -38,8 +38,9 @@ export function getCategories(category) {
         return false
       })
     })
-    .then(function() {
-      dispatch({type:'GET_ARTICLES', payload:articleCategories})
+    .then(function(err) {
+      dispatch({type:'GET_CATEGORIES', payload:articleCategories})
+
     })
     .catch(function(err) {
       dispatch({type:'GET_CATEGORIES_REJECTED', payload:err})
