@@ -34,6 +34,9 @@ class FullNavbars extends Component {
          <LinkContainer to={"/classement"}>
            <Nav.Link eventKey={1}>Sources</Nav.Link>
          </LinkContainer>
+         <LinkContainer to={"/birthdays"}>
+           <Nav.Link eventKey={2}>Birthdays</Nav.Link>
+         </LinkContainer>
        </Nav>
        <Nav>
          <LinkContainer to={"/monCompte"}>

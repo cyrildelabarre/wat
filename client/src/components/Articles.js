@@ -91,8 +91,9 @@ class Articles extends Component {
                       var timeDiff = (now - publishedTime)
                       var time = new Date(timeDiff).toLocaleTimeString("fr-FR")
                       const timePassed = time.split(':')[0] + 'h';
-
                       if (i < 2) {
+                        var birthdays = require('celeb-birthdays');
+                        console.log(birthdays['03-13']);
                         return (
                           <MDBCol lg="6" md="12" key={i} className="d-flex" onClick={this.openIframe.bind(this, article.url)}>
                             <div style={{
