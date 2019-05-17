@@ -135,8 +135,8 @@ class Articles extends Component {
                       } else {
                         return (
                           // {REST OF ARTICLES}
-                          <ul className="list-unstyled" key={i} onClick={this.openIframe.bind(this, article.url)}>
-
+                          <ul className="list-unstyled" key={i} >
+                              <a href={article.url} target="_blank" rel="noopener noreferrer">
                               <Media as="li" key={i}>
                                 <img
                                   width={264}
@@ -155,7 +155,7 @@ class Articles extends Component {
                                   <p>{timePassed}</p>
                                 </Media.Body>
                               </Media>
-
+                            </a>
                           </ul>
                         )
                       }
