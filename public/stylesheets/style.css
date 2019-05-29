@@ -6,3 +6,6 @@ body {
 a {
   color: #00B7FF;
 }
+.card-group>.card {
+  flex: 2 1 20% !important;
+}

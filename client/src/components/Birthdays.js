@@ -4,24 +4,45 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { bindActionCreators } from 'redux'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
-
+import {getBirthdayImg} from '../actions/GetArticles'
 class Birthdays extends Component {
 
   constructor(props) {
     super(props)
+this.props.getBirthdayImg()
   }
 
   render () {
+    let birthdate = '';
     const birthdays = require('celeb-birthdays');
-    let birthdate = '02-06'
+    var d = new Date();
+    var dayNumber = d.getDate();
+    var monthNumber1 = d.getMonth();
+    var monthNumber = monthNumber1 + 1;
+    if (dayNumber < 10) {
+      let day = '0'+dayNumber
+       birthdate = monthNumber + '-' + day
+    } else if (monthNumber < 10){
+      let month = '0'+monthNumber
+         birthdate = month + '-' + dayNumber
+    } else {
+       birthdate = monthNumber + '-' + dayNumber
+}
+    console.log(birthdate)
     return(
       <CardGroup>
         {
+
           birthdays[birthdate].map((birthday, i) => {
             console.log(birthdays[birthdate][i])
+            let str = birthdays[birthdate][i];
+            let res = str.split(" ");
+            let lastName = res[1].toLowerCase();
+            let firstName = res[0].toLowerCase();
             return(
+
               <Card key={i}>
-                <Card.Img variant="top" src="holder.js/100px160" />
+              <Card.Img variant="top" src={'https://www.famousbirthdays.com/faces/' + lastName +'-' + firstName + '-image.jpg'} />
                 <Card.Body>
                   <Card.Title>{birthdays[birthdate][i]}</Card.Title>
                   <Card.Text>
@@ -38,18 +59,20 @@ class Birthdays extends Component {
         }
       </CardGroup>
     )
+
   }
 }
 
 
 function mapStateToProps(state){
   return {
+    bdayImg : state.imglink
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-
+getBirthdayImg
   }, dispatch)
 }
 

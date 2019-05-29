@@ -39,7 +39,7 @@
     color: #000
 }
 .card-img-top {
-    width: 35%;
+    width: 80%;
     border-top-left-radius: calc(.25rem - 1px);
     border-top-right-radius: calc(.25rem - 1px);
     margin: auto;
@@ -103,4 +103,7 @@ display: none;
   display: block !important;
   height: 90vh !important;
   width: 100vw !important;
+}
+.card-group>.card {
+  flex: 2 1 20% !important;
 }
