@@ -37,12 +37,18 @@ class FullNavbars extends Component {
          <LinkContainer to={"/birthdays"}>
            <Nav.Link eventKey={2}>Birthdays</Nav.Link>
          </LinkContainer>
+         <LinkContainer to={"/today"}>
+           <Nav.Link className="today-nav" eventKey={3}>Today</Nav.Link>
+         </LinkContainer>
+         <LinkContainer to={"/events"}>
+           <Nav.Link className="events-nav" eventKey={4}>Events</Nav.Link>
+         </LinkContainer>
        </Nav>
        <Nav>
          <LinkContainer to={"/monCompte"}>
-           <Nav.Link eventKey={3}>Mon Compte</Nav.Link>
+           <Nav.Link eventKey={5}>Mon Compte</Nav.Link>
          </LinkContainer>
-         <Nav.Link eventKey={4} onClick={this.onLogout.bind(this)}>Me déconnecter</Nav.Link>
+         <Nav.Link eventKey={6} onClick={this.onLogout.bind(this)}>Me déconnecter</Nav.Link>
        </Nav>
      </Navbar.Collapse>
    )

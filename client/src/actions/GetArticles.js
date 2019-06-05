@@ -59,39 +59,3 @@ export function getSources() {
     })
   }
 }
-
-export function getBirthdayImg() {
-    let bdayImg = []
-return function(dispatch) {
-  const birthdays = require('celeb-birthdays');
-  let birthdate = ''
-  var d = new Date();
-  var dayNumber = d.getDate();
-  var monthNumber1 = d.getMonth();
-  var monthNumber = monthNumber1 + 1;
-  if (dayNumber < 10) {
-    let day = '0'+dayNumber
-     birthdate = monthNumber + '-' + day
-  } else if (monthNumber < 10){
-    let month = '0'+monthNumber
-       birthdate = month + '-' + dayNumber
-  } else {
-     birthdate = monthNumber + '-' + dayNumber
-}
-    birthdays[birthdate].map((birthday, i) => {
-      let str = birthdays[birthdate][i];
-      let res = str.split(" ");
-
-  axios.get('http://api.tvmaze.com/search/people?q='+ res[0]+ '-' + res[1])
-  .then(function(response) {
-    var imglink = res[0]+'-'+res[1] + ' ' + response.data[0].person.image.original
-    bdayImg.push(imglink)
-     dispatch({type:'GET_BirthdayImg', payload:bdayImg})
-
-  })
-  .catch(function(err) {
-    dispatch({type:'GET_BirthdayImg_REJECTED', payload:err})
-  })
-  })
-}
-}

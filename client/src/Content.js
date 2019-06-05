@@ -7,6 +7,8 @@ import MonCompte from "./components/MonCompte"
 import Articles from "./components/Articles"
 import Sources from "./components/Sources"
 import Birthdays from "./components/Birthdays"
+import Today from "./components/Today"
+import Events from "./components/Events"
 
 
 const Main = () => (
@@ -18,6 +20,8 @@ const Main = () => (
       <Route path='/articles' component={Articles}/>
       <Route path='/classement' component={Sources} />
       <Route path='/birthdays' component={Birthdays} />
+      <Route path='/today' component={Today} />
+      <Route path='/events' component={Events} />
     </Switch>
   </main>
 )

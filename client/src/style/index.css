@@ -25,6 +25,9 @@
 .card-img-top {
   padding: 20px 0px;
 }
+.card-title{
+  text-align: center;
+}
 .card-text {
   margin-bottom: 3em;
 }
@@ -82,13 +85,33 @@ margin-top: 3rem;
 .top-img {
   width: 100%;
 }
-
+.card-group>.card {
+  flex: 0 0 25%;
+}
+.list-group {
+  background-color: 	#DCD7D6
+}
+.bio h2 {
+  font-size: 1rem;
+  text-decoration: underline
+}
+.bio h2:first-child {
+padding-top: 20px;
+}
+.list-group-item {
+  background-color: transparent
+}
 /* IFRAME */
 .close {
   padding-right: 50px !important;
 }
 .close span {
   font-size: 40px;
+}
+.bio {
+  flex: 1 1 100%;
+    max-width: 100%;
+    padding: 0px;
 }
 #mainIframe {
 display: none;
@@ -98,12 +121,28 @@ display: none;
   height: 10vh !important;
   width: 100vw !important;
 }
-
+.stat {
+  padding-bottom: 10px;
+  padding-top: 10px;
+  border-bottom: 1px solid lightgrey
+}
+.section--person-of-interest{
+  display: none
+}
+.event-box .no-padding-top:last-child {
+  display: none
+}
+.event-box a {
+  color: blue
+}
+.today-nav, .events-nav {
+  display: block
+}
 .showIframe {
   display: block !important;
   height: 90vh !important;
   width: 100vw !important;
 }
-.card-group>.card {
-  flex: 2 1 20% !important;
+.hidden-xs, .hidden-md, .hidden-lg {
+  display: none
 }

@@ -4,50 +4,67 @@ import ListGroup from 'react-bootstrap/ListGroup'
 import { bindActionCreators } from 'redux'
 import CardGroup from 'react-bootstrap/CardGroup'
 import Card from 'react-bootstrap/Card'
-import {getBirthdayImg} from '../actions/GetArticles'
+import $ from 'jquery';
+
 class Birthdays extends Component {
 
   constructor(props) {
     super(props)
-this.props.getBirthdayImg()
+    this.state = {
+      imageLoadError: true
+    }
+  }
+
+  onError() {
+    this.setState({
+      imageUrl: "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"
+    })
   }
 
   render () {
-    let birthdate = '';
     const birthdays = require('celeb-birthdays');
     var d = new Date();
     var dayNumber = d.getDate();
     var monthNumber1 = d.getMonth();
     var monthNumber = monthNumber1 + 1;
-    if (dayNumber < 10) {
-      let day = '0'+dayNumber
-       birthdate = monthNumber + '-' + day
-    } else if (monthNumber < 10){
-      let month = '0'+monthNumber
-         birthdate = month + '-' + dayNumber
-    } else {
-       birthdate = monthNumber + '-' + dayNumber
-}
-    console.log(birthdate)
+    if (monthNumber < 9){
+      monthNumber = '0' + (monthNumber1 + 1);
+    }
+    if (dayNumber < 10){
+      dayNumber = '0' + dayNumber;
+    }
+    let birthdate = monthNumber + '-' + dayNumber;
+
     return(
       <CardGroup>
         {
-
           birthdays[birthdate].map((birthday, i) => {
-            console.log(birthdays[birthdate][i])
-            let str = birthdays[birthdate][i];
-            let res = str.split(" ");
-            let lastName = res[1].toLowerCase();
-            let firstName = res[0].toLowerCase();
-            return(
+            let str = birthday.split(" ")
+            var firstName = str[0].toLowerCase();
+            var lastName = str[1].toLowerCase();
+            let nameClass = firstName+'-'+lastName
+            setTimeout(function(){
+              $(".birthdate"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .main-stats .stat");
+              $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .bio");
+              setTimeout(function(){
+                var htmlstring = $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .bio")[0].innerHTML;
+                htmlstring = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
+                if(htmlstring == '') {
+                let boxToHide = $(".box"+nameClass).parent().parent()
+                  $(boxToHide).hide()
+                }
+              }, 300);
+            }, 200);
 
+            return(
               <Card key={i}>
-              <Card.Img variant="top" src={'https://www.famousbirthdays.com/faces/' + lastName +'-' + firstName + '-image.jpg'} />
+                <Card.Img variant="top" onError={(e)=>{ if (e.target.src !== "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"){ e.target.onerror = null; e.target.src="https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"; } }} src={'https://www.famousbirthdays.com/faces/' + lastName + '-' + firstName + '-image.jpg'} />
                 <Card.Body>
                   <Card.Title>{birthdays[birthdate][i]}</Card.Title>
-                  <Card.Text>
-                    This is a wider card with supporting text below as a natural lead-in to
-                    additional content. This content is a little bit longer.
+                  <ListGroup variant="flush">
+                    <ListGroup.Item className={"birthdate" + nameClass}></ListGroup.Item>
+                  </ListGroup>
+                  <Card.Text className={"box" + nameClass}>
                   </Card.Text>
                 </Card.Body>
                 <Card.Footer>
@@ -59,20 +76,18 @@ this.props.getBirthdayImg()
         }
       </CardGroup>
     )
-
   }
 }
 
 
 function mapStateToProps(state){
   return {
-    bdayImg : state.imglink
   }
 }
 
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
-getBirthdayImg
+
   }, dispatch)
 }
 
