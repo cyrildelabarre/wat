@@ -1,0 +1,11 @@
+.event-box {
+  width: 100%;
+  max-width: 1440px;
+  margin-top: 40px;
+}
+.event-list{
+  padding-left: 0px;
+}
+.event-list__item b a {
+  color: red
+}

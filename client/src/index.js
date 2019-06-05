@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 
 // CSS import
 import './style/index.css'
+import './style/events.css'
 
 // Component import
 import App from './App'
