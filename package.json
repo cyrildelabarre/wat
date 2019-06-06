@@ -1,8 +1,8 @@
 {
-  "name": "nhl-playoff-vote-app",
+  "name": "wat",
   "version": "1.0.0",
   "private": true,
-  "homepage": "https://nhl-playoff-vote.herokuapp.com",
+  "homepage": "https://w-a-t.herokuapp.com",
   "engines": {
     "npm": "6.5.0",
     "node": "8.12.0"
