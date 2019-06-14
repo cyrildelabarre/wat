@@ -18,7 +18,7 @@ const Main = () => (
       <Route path='/signin' component={Signin}/>
       <Route path='/monCompte' component={MonCompte}/>
       <Route path='/articles' component={Articles}/>
-      <Route path='/classement' component={Sources} />
+      <Route path='/sources' component={Sources} />
       <Route path='/birthdays' component={Birthdays} />
       <Route path='/today' component={Today} />
       <Route path='/events' component={Events} />
