@@ -2,10 +2,12 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import Iframe from 'react-iframe'
 import { bindActionCreators } from 'redux'
-import {  MDBCard, MDBCardBody, MDBCol, MDBRow, MDBView, MDBMask, MDBIcon } from 'mdbreact';
+import { MDBCard, MDBCardBody, MDBCol, MDBRow, MDBView, MDBMask, MDBIcon } from 'mdbreact';
+import DropdownButton from 'react-bootstrap/DropdownButton';
+import Dropdown from 'react-bootstrap/Dropdown';
 import Media from 'react-bootstrap/Media'
 
-import { getArticles, getCategories } from '../actions/GetArticles'
+import { getArticles, getCategories, changeCountries } from '../actions/GetArticles'
 
 class Articles extends Component {
 
@@ -24,12 +26,17 @@ class Articles extends Component {
     this.props.getCategories(category)
   }
 
+  chooseCountry(e, props) {
+    let country = e.target.getAttribute('attributecountry')
+    this.props.changeCountries(country)
+  }
+
   openIframe(url) {
     document.getElementById('myId').setAttribute("src", url)
     this.setState({
       displayIframe: !this.state.displayIframe
     })
-     window.scrollTo(0, 0)
+    window.scrollTo(0, 0)
   }
 
   onError() {
@@ -41,11 +48,11 @@ class Articles extends Component {
 
   closeIframe() {
     let element = document.getElementById('mainIframe')
-     element.classList.remove("showIframe");
+    element.classList.remove("showIframe");
 
   }
 
-  render () {
+  render() {
     return (
       // {TOP 2 ARTICLES}
       <div>
@@ -55,13 +62,12 @@ class Articles extends Component {
             <button type="button" className="close" aria-label="Close">
               <span aria-hidden="true">×</span>
             </button>
-
           </div>
           <Iframe src='' id="myId" display="initial" position="relative" allowFullScreen />
         </div>
         <MDBRow className="m-top-5 px-5 mx-auto justify-content-center"
           style={{ fontWeight: 300, maxWidth: "100%" }}
-          >
+        >
           <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>business</button>
           <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>entertainment</button>
           <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>general</button>
@@ -71,11 +77,18 @@ class Articles extends Component {
           <button type="button" className="btn category-btn gradient-button" onClick={this.chooseCategory.bind(this)}>technology</button>
         </MDBRow>
         <div className='container'>
+          <Dropdown>
+            <Dropdown.Toggle variant="success" id="dropdown-basic">fr</Dropdown.Toggle>
+            <Dropdown.Menu>
+              <Dropdown.Item attributecountry="us" onClick={this.chooseCountry.bind(this)}>us</Dropdown.Item>
+              <Dropdown.Item attributecountry="fr" onClick={this.chooseCountry.bind(this)}>fr</Dropdown.Item>
+            </Dropdown.Menu>
+          </Dropdown>
           <div>
             <MDBCard
               className="my-5 px-5 mx-auto"
               style={{ fontWeight: 300, maxWidth: "90%" }}
-              >
+            >
               <MDBCardBody style={{ paddingTop: 0 }}>
                 <h2 className="h1-responsive font-weight-bold my-5 text-center">
                   Top News
@@ -97,27 +110,23 @@ class Articles extends Component {
                         return (
                           <MDBCol lg="6" md="12" key={i} className="d-flex" onClick={this.openIframe.bind(this, article.url)}>
                             <div style={{
-                                marginBottom: "1.5rem"
-                              }}>
+                              marginBottom: "1.5rem"
+                            }}>
                               <MDBView hover rounded className="z-depth-1-half mb-4">
                                 <img
                                   height={200}
                                   className="top-img"
-                                  onError={(e)=>{ if (e.target.src !== "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"){ e.target.onerror = null; e.target.src="https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"; } }}
+                                  onError={(e) => { if (e.target.src !== "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif") { e.target.onerror = null; e.target.src = "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"; } }}
                                   src={article.urlToImage}
                                   alt=""
-                                  />
-
+                                />
                                 <MDBMask overlay="white-slight" className="waves-light" />
-
                               </MDBView>
                               <div className="d-flex justify-content-between">
-
                                 <h6 className="">
                                   <MDBIcon icon="plane" className="pr-2" />
                                   {article.source.name}
                                 </h6>
-
                                 <p className="font-weight-bold dark-grey-text">
                                   <MDBIcon far icon="clock" className="pr-2" />
                                   {timePassed}
@@ -136,17 +145,16 @@ class Articles extends Component {
                         return (
                           // {REST OF ARTICLES}
                           <ul className="list-unstyled" key={i} >
-                              <a href={article.url} target="_blank" rel="noopener noreferrer">
+                            <a href={article.url} target="_blank" rel="noopener noreferrer">
                               <Media as="li" key={i}>
                                 <img
                                   width={264}
                                   height={180}
                                   className="mr-3"
-
                                   src={article.urlToImage}
-                                  onError={(e)=>{ if (e.target.src !== "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"){ e.target.onerror = null; e.target.src="https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"; } }}
+                                  onError={(e) => { if (e.target.src !== "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif") { e.target.onerror = null; e.target.src = "https://media.giphy.com/media/uprwwjptZW4Za/giphy.gif"; } }}
                                   alt="Generic placeholder"
-                                  />
+                                />
                                 <Media.Body>
                                   <h5>{article.title}</h5>
                                   <p>
@@ -159,7 +167,6 @@ class Articles extends Component {
                           </ul>
                         )
                       }
-
                     })
                   }
                 </MDBRow>
@@ -172,7 +179,7 @@ class Articles extends Component {
   }
 }
 
-function mapStateToProps(state){
+function mapStateToProps(state) {
   return {
     articles: state.article.article,
   }
@@ -182,6 +189,7 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     getCategories,
     getArticles,
+    changeCountries,
   }, dispatch)
 }
 

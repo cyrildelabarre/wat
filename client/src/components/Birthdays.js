@@ -53,23 +53,22 @@ class Birthdays extends Component {
             setTimeout(function(){
               $(".birthdate"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .main-stats .stat");
               $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .bio");
-
             }, 200);
             setTimeout(function(){
               var htmlstring = $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+".html .bio")[0].innerHTML;
               htmlstring = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
               var htmlstring2 = $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+"-tvactress.html .bio")[0].innerHTML;
               htmlstring2 = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
-              // console.log(htmlstring2)
-              // if(htmlstring == '') {
-              //   var htmlstring2 = $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+"-tvactress.html .bio")[0].innerHTML;
-              //   htmlstring2 = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
-              //   console.log(htmlstring2)
-              //   if(htmlstring2 == '') {
-              //     let boxToHide = $(".box"+nameClass).parent().parent()
-              //     $(boxToHide).hide()
-              //   }
-              // }
+              console.log(htmlstring2)
+              if(htmlstring == '') {
+                var htmlstring2 = $(".box"+nameClass).load("https://www.famousbirthdays.com/people/" + firstName + '-' + lastName+"-tvactress.html .bio")[0].innerHTML;
+                htmlstring2 = (htmlstring.trim) ? htmlstring.trim() : htmlstring.replace(/^\s+/,'');
+                console.log(htmlstring2)
+                if(htmlstring2 == '') {
+                  let boxToHide = $(".box"+nameClass).parent().parent()
+                  $(boxToHide).hide()
+                }
+              }
             }, 500);
             return(
               <Card key={i}>
